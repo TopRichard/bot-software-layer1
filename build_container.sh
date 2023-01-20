@@ -27,7 +27,7 @@ mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs}
 export SINGULARITY_CACHEDIR=$EESSI_TMPDIR/singularity_cache
 
 # take into account that $SINGULARITY_BIND may be defined already, to bind additional paths into the build container
-BIND_PATHS="$EESSI_TMPDIR/var-run-cvmfs:/var/run/cvmfs,$EESSI_TMPDIR/var-lib-cvmfs:/var/lib/cvmfs,$EESSI_TMPDIR,default.local:/etc/cvmfs/default.local"
+BIND_PATHS="$EESSI_TMPDIR/var-run-cvmfs:/var/run/cvmfs,$EESSI_TMPDIR/var-lib-cvmfs:/var/lib/cvmfs,default.local:/etc/cvmfs/default.local"
 if [ -z $SINGULARITY_BIND ]; then
     export SINGULARITY_BIND="$BIND_PATHS"
 else
