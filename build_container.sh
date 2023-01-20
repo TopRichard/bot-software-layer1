@@ -19,7 +19,7 @@ fi
 mkdir -p $EESSI_TMPDIR
 
 echo "Using $EESSI_TMPDIR as parent for temporary directories..."
-echo " YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY "
+echo " YYYYYYYYYYYYYYYYYYYYYYYYYYY#####################YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY "
 # create temporary directories
 mkdir -p $EESSI_TMPDIR/{home,overlay-upper,overlay-work}
 mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs}
@@ -27,7 +27,8 @@ mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs}
 export SINGULARITY_CACHEDIR=$EESSI_TMPDIR/singularity_cache
 
 # take into account that $SINGULARITY_BIND may be defined already, to bind additional paths into the build container
-BIND_PATHS="$EESSI_TMPDIR/var-run-cvmfs:/var/run/cvmfs,$EESSI_TMPDIR/var-lib-cvmfs:/var/lib/cvmfs,/etc/cvmfs/:/etc/cvmfs/"
+BIND_PATHS="$EESSI_TMPDIR/var-run-cvmfs:/var/run/cvmfs,$EESSI_TMPDIR/var-lib-cvmfs:/var/lib/cvmfs,$EESSI_TMPDIR,/etc/cvmfs/:/etc/cvmfs/"
+echo $BIND_PATHS
 if [ -z $SINGULARITY_BIND ]; then
     export SINGULARITY_BIND="$BIND_PATHS"
 else
