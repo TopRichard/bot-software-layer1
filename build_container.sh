@@ -19,7 +19,7 @@ fi
 mkdir -p $EESSI_TMPDIR
 
 echo "Using $EESSI_TMPDIR as parent for temporary directories..."
-
+echo " YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY "
 # create temporary directories
 mkdir -p $EESSI_TMPDIR/{home,overlay-upper,overlay-work}
 mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs}
