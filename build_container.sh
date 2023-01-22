@@ -22,7 +22,7 @@ echo "Using $EESSI_TMPDIR as parent for temporary directories..."
 echo " YYYYYYYYYYYYYYYYYYYYYYYYYYY#####################YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY "
 # create temporary directories
 mkdir -p $EESSI_TMPDIR/{home,overlay-upper,overlay-work}
-mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs,cvmfs}
+mkdir -p $EESSI_TMPDIR/{var-lib-cvmfs,var-run-cvmfs}
 # configure Singularity
 export SINGULARITY_CACHEDIR=$EESSI_TMPDIR/singularity_cache
 
