@@ -64,7 +64,7 @@ if [ "$SHELL_OR_RUN" == "shell" ]; then
 elif [ "$SHELL_OR_RUN" == "run" ]; then
     echo $EESSI_PILOT_READONLY
     echo #############
-    echo $EESSI_PILOT_WRITABLE
+    echo $EESSI_PILOT_WRITABLE_OVERLAY
     echo #########
     echo $BUILD_CONTAINER
     echo ########
