@@ -50,7 +50,8 @@ if [ ! -z ${EESSI_SOFTWARE_SUBDIR_OVERRIDE} ]; then
     # also specify via $APPTAINERENV_* (future proof, cfr. https://apptainer.org/docs/user/latest/singularity_compatibility.html#singularity-environment-variable-compatibility)
     export APPTAINERENV_EESSI_SOFTWARE_SUBDIR_OVERRIDE=${EESSI_SOFTWARE_SUBDIR_OVERRIDE}
 fi
-
+echo "Trying tomsthing NEW:"
+singularity shell --fusemount "$EESSI_PILOT_READONLY" --fusemount "$EESSI_PILOT_WRITABLE_OVERLAY" $BUILD_CONTAINER
 if [ "$SHELL_OR_RUN" == "shell" ]; then
     # start shell in Singularity container, with EESSI repository mounted with writable overlay
     echo "Starting Singularity build container..."
