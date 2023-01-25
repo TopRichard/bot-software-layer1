@@ -8,7 +8,6 @@ if [ $# -lt 2 ]; then
 fi
 SHELL_OR_RUN=$1
 EESSI_TMPDIR=$2
-export EESSI_TMPDIR
 shift 2
 
 if [ "$SHELL_OR_RUN" == "run" ] && [ $# -eq 0 ]; then
