@@ -54,9 +54,13 @@ source $TOPDIR/utils.sh
 
 # honor $TMPDIR if it is already defined, use /tmp otherwise
 if [ -z $TMPDIR ]; then
-    export WORKDIR=/tmp/$USER
+    echo "$EESSI_TMPDIR first occ"
+ #   export WORKDIR=/tmp/$USER
+    export WORKDIR=$EESSI_TMPDIR/$USER
 else
-    export WORKDIR=$TMPDIR/$USER
+ #   export WORKDIR=$TMPDIR/$USER
+    echo "second occ:"
+     export WORKDIR=$EESSI_TMPDIR/$USER
 fi
 
 TMPDIR=$(mktemp -d)
