@@ -344,7 +344,7 @@ if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
     check_exit_code $? "${ok_msg}" "${fail_msg}"
 fi
 
-<<<<<<< HEAD
+
 #echo ">> Installing RStudio-Server 1.3.1093..."
 #ok_msg="RStudio-Server installed, enjoy!"
 #fail_msg="Installation of RStudio-Server failed, might be OS deps..."
@@ -363,42 +363,6 @@ fi
 #$EB Spark-3.1.1-foss-2020a-Python-3.8.2.eb -r
 #check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-#echo ">> Installing IPython 7.15.0..."
-#ok_msg="IPython installed, launch your Jupyter Notebooks!"
-#fail_msg="Installation of IPython failed, that's unexpected..."
-#$EB IPython-7.15.0-foss-2020a-Python-3.8.2.eb -r
-#check_exit_code $? "${ok_msg}" "${fail_msg}"
-
-#echo ">> Installing WRF 3.9.1.1..."
-#ok_msg="WRF installed, it's getting hot in here!"
-#fail_msg="Installation of WRF failed, that's unexpected..."
-#OMPI_MCA_pml=ucx UCX_TLS=tcp $EB WRF-3.9.1.1-foss-2020a-dmpar.eb -r --include-easyblocks-from-pr 2648
-#check_exit_code $? "${ok_msg}" "${fail_msg}"
-
-#echo ">> Installing Nextflow 22.10.1..."
-#ok_msg="Nextflow installed, the work must flow..."
-#fail_msg="Installation of Nextflow failed, that's unexpected..."
-#$EB -r --from-pr 16531 Nextflow-22.10.1.eb
-#check_exit_code $? "${ok_msg}" "${fail_msg}"
-=======
-echo ">> Installing RStudio-Server 1.3.1093..."
-ok_msg="RStudio-Server installed, enjoy!"
-fail_msg="Installation of RStudio-Server failed, might be OS deps..."
-$EB RStudio-Server-1.3.1093-foss-2020a-Java-11-R-4.0.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
-
-echo ">> Installing OSU-Micro-Benchmarks 5.6.3..."
-ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
-fail_msg="Installation of OSU-Micro-Benchmarks failed, that's unexpected..."
-$EB OSU-Micro-Benchmarks-5.6.3-gompi-2020a.eb -r
-check_exit_code $? "${ok_msg}" "${fail_msg}"
-
-echo ">> Installing Spark 3.1.1..."
-ok_msg="Spark installed, set off the fireworks!"
-fail_msg="Installation of Spark failed, no fireworks this time..."
-$EB Spark-3.1.1-foss-2020a-Python-3.8.2.eb -r
-check_exit_code $? "${ok_msg}" "${fail_msg}"
-
 echo ">> Installing IPython 7.15.0..."
 ok_msg="IPython installed, launch your Jupyter Notebooks!"
 fail_msg="Installation of IPython failed, that's unexpected..."
@@ -411,37 +375,37 @@ fail_msg="Installation of WRF failed, that's unexpected..."
 OMPI_MCA_pml=ucx UCX_TLS=tcp $EB WRF-3.9.1.1-foss-2020a-dmpar.eb -r --include-easyblocks-from-pr 2648
 check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing R 4.1.0 (better be patient)..."
-ok_msg="R installed, wow!"
-fail_msg="Installation of R failed, so sad..."
-$EB --from-pr 14821 X11-20210518-GCCcore-10.3.0.eb -r && $EB --from-pr 16011 R-4.1.0-foss-2021a.eb --robot --parallel-extensions-install --experimental
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+#echo ">> Installing R 4.1.0 (better be patient)..."
+#ok_msg="R installed, wow!"
+#fail_msg="Installation of R failed, so sad..."
+#$EB --from-pr 14821 X11-20210518-GCCcore-10.3.0.eb -r && $EB --from-pr 16011 R-4.1.0-foss-2021a.eb --robot --parallel-extensions-install --experimental
+#check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing Nextflow 22.10.1..."
-ok_msg="Nextflow installed, the work must flow..."
-fail_msg="Installation of Nextflow failed, that's unexpected..."
-$EB -r --from-pr 16531 Nextflow-22.10.1.eb
-check_exit_code $? "${ok_msg}" "${fail_msg}"
->>>>>>> main
+#echo ">> Installing Nextflow 22.10.1..."
+#ok_msg="Nextflow installed, the work must flow..."
+#fail_msg="Installation of Nextflow failed, that's unexpected..."
+#$EB -r --from-pr 16531 Nextflow-22.10.1.eb
+#check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing OSU-Micro-Benchmarks/5.7.1-gompi-2021a..."
-ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
-fail_msg="Installation of OSU-Micro-Benchmarks failed, that's unexpected..."
-$EB OSU-Micro-Benchmarks-5.7.1-gompi-2021a.eb -r
-check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing EasyBuild 4.5.1..."
-ok_msg="EasyBuild v4.5.1 installed"
-fail_msg="EasyBuild v4.5.1 failed to install"
-$EB --from-pr 14545 --include-easyblocks-from-pr 2805
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+#echo ">> Installing OSU-Micro-Benchmarks/5.7.1-gompi-2021a..."
+#ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
+#fail_msg="Installation of OSU-Micro-Benchmarks failed, that's unexpected..."
+#$EB OSU-Micro-Benchmarks-5.7.1-gompi-2021a.eb -r
+#check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-LMOD_IGNORE_CACHE=1 module swap EasyBuild/4.5.1
-check_exit_code $? "Swapped to EasyBuild/4.5.1" "Couldn't swap to EasyBuild/4.5.1"
+#echo ">> Installing EasyBuild 4.5.1..."
+#ok_msg="EasyBuild v4.5.1 installed"
+#fail_msg="EasyBuild v4.5.1 failed to install"
+#$EB --from-pr 14545 --include-easyblocks-from-pr 2805
+#check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing SciPy-bundle with foss/2021a..."
-ok_msg="SciPy-bundle with foss/2021a installed, welcome to the modern age"
-fail_msg="Installation of SciPy-bundle with foss/2021a failed, back to the stone age..."
+#LMOD_IGNORE_CACHE=1 module swap EasyBuild/4.5.1
+#check_exit_code $? "Swapped to EasyBuild/4.5.1" "Couldn't swap to EasyBuild/4.5.1"
+
+#echo ">> Installing SciPy-bundle with foss/2021a..."
+#ok_msg="SciPy-bundle with foss/2021a installed, welcome to the modern age"
+#fail_msg="Installation of SciPy-bundle with foss/2021a failed, back to the stone age..."
 # use GCCcore easyconfig from https://github.com/easybuilders/easybuild-easyconfigs/pull/14454
 # which includes patch to fix installation with recent Linux kernel headers
 $EB --from-pr 14454 GCCcore-10.3.0.eb --robot
