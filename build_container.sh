@@ -2,7 +2,7 @@
 
 base_dir=$(dirname $(realpath $0))
 
-BUILD_CONTAINER="docker://ghcr.io/eessi/build-node:debian11"
+BUILD_CONTAINER="docker://ghcr.io/eessi/build-node:debian10"
 
 if [ $# -lt 2 ]; then
     echo "Usage: $0 <shell|run> <path for temporary directories>" >&2
