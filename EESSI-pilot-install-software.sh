@@ -209,27 +209,28 @@ echo_green "All set, let's start installing some software in ${EASYBUILD_INSTALL
 # install Java with fixed custom easyblock that uses patchelf to ensure right glibc is picked up,
 # see https://github.com/EESSI/software-layer/issues/123
 # and https://github.com/easybuilders/easybuild-easyblocks/pull/2557
-ok_msg="Java installed, off to a good (?) start!"
-fail_msg="Failed to install Java, woopsie..."
-$EB Java-11.eb --robot --include-easyblocks-from-pr 2557
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+############################################################################
+##ok_msg="Java installed, off to a good (?) start!"
+##fail_msg="Failed to install Java, woopsie..."
+##$EB Java-11.eb --robot --include-easyblocks-from-pr 2557
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # install GCC for foss/2020a
-export GCC_EC="GCC-9.3.0.eb"
-echo ">> Starting slow with ${GCC_EC}..."
-ok_msg="${GCC_EC} installed, yippy! Off to a good start..."
-fail_msg="Installation of ${GCC_EC} failed!"
+##export GCC_EC="GCC-9.3.0.eb"
+##echo ">> Starting slow with ${GCC_EC}..."
+##ok_msg="${GCC_EC} installed, yippy! Off to a good start..."
+##fail_msg="Installation of ${GCC_EC} failed!"
 # pull in easyconfig from https://github.com/easybuilders/easybuild-easyconfigs/pull/14453,
 # which includes patch to fix build of GCC 9.3 when recent kernel headers are in place
-$EB ${GCC_EC} --robot --from-pr 14453 GCCcore-9.3.0.eb
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##$EB ${GCC_EC} --robot --from-pr 14453 GCCcore-9.3.0.eb
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # install CMake with custom easyblock that patches CMake when --sysroot is used
-echo ">> Install CMake with fixed easyblock to take into account --sysroot"
-ok_msg="CMake installed!"
-fail_msg="Installation of CMake failed, what the ..."
-$EB CMake-3.16.4-GCCcore-9.3.0.eb --robot --include-easyblocks-from-pr 2248
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Install CMake with fixed easyblock to take into account --sysroot"
+##ok_msg="CMake installed!"
+##fail_msg="Installation of CMake failed, what the ..."
+##$EB CMake-3.16.4-GCCcore-9.3.0.eb --robot --include-easyblocks-from-pr 2248
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # If we're building OpenBLAS for GENERIC, we need https://github.com/easybuilders/easybuild-easyblocks/pull/1946
 echo ">> Installing OpenBLAS..."
@@ -244,52 +245,52 @@ fi
 $EB $openblas_include_easyblocks_from_pr OpenBLAS-0.3.9-GCC-9.3.0.eb --robot
 check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing OpenMPI..."
-ok_msg="OpenMPI installed, w00!"
-fail_msg="Installation of OpenMPI failed, that's not good..."
-$EB OpenMPI-4.0.3-GCC-9.3.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing OpenMPI..."
+##ok_msg="OpenMPI installed, w00!"
+##fail_msg="Installation of OpenMPI failed, that's not good..."
+##$EB OpenMPI-4.0.3-GCC-9.3.0.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # install Python
-echo ">> Install Python 2.7.18 and Python 3.8.2..."
-ok_msg="Python 2.7.18 and 3.8.2 installed, yaay!"
-fail_msg="Installation of Python failed, oh no..."
-$EB Python-2.7.18-GCCcore-9.3.0.eb Python-3.8.2-GCCcore-9.3.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Install Python 2.7.18 and Python 3.8.2..."
+##ok_msg="Python 2.7.18 and 3.8.2 installed, yaay!"
+##fail_msg="Installation of Python failed, oh no..."
+##$EB Python-2.7.18-GCCcore-9.3.0.eb Python-3.8.2-GCCcore-9.3.0.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing Perl..."
-ok_msg="Perl installed, making progress..."
-fail_msg="Installation of Perl failed, this never happens..."
+##echo ">> Installing Perl..."
+##ok_msg="Perl installed, making progress..."
+##fail_msg="Installation of Perl failed, this never happens..."
 # use enhanced Perl easyblock from https://github.com/easybuilders/easybuild-easyblocks/pull/2640
 # to avoid trouble when using long installation prefix (for example with EESSI pilot 2021.12 on skylake_avx512...)
-$EB Perl-5.30.2-GCCcore-9.3.0.eb --robot --include-easyblocks-from-pr 2640
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##$EB Perl-5.30.2-GCCcore-9.3.0.eb --robot --include-easyblocks-from-pr 2640
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing Qt5..."
-ok_msg="Qt5 installed, phieuw, that was a big one!"
-fail_msg="Installation of Qt5 failed, that's frustrating..."
-$EB Qt5-5.14.1-GCCcore-9.3.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing Qt5..."
+##ok_msg="Qt5 installed, phieuw, that was a big one!"
+##fail_msg="Installation of Qt5 failed, that's frustrating..."
+##$EB Qt5-5.14.1-GCCcore-9.3.0.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # skip test step when installing SciPy-bundle on aarch64,
 # to dance around problem with broken numpy tests;
 # cfr. https://github.com/easybuilders/easybuild-easyconfigs/issues/11959
-echo ">> Installing SciPy-bundle"
-ok_msg="SciPy-bundle installed, yihaa!"
-fail_msg="SciPy-bundle installation failed, bummer..."
-SCIPY_EC=SciPy-bundle-2020.03-foss-2020a-Python-3.8.2.eb
-if [[ "$(uname -m)" == "aarch64" ]]; then
-  $EB $SCIPY_EC --robot --skip-test-step
-else
-  $EB $SCIPY_EC --robot
-fi
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing SciPy-bundle"
+##ok_msg="SciPy-bundle installed, yihaa!"
+##fail_msg="SciPy-bundle installation failed, bummer..."
+##SCIPY_EC=SciPy-bundle-2020.03-foss-2020a-Python-3.8.2.eb
+##if [[ "$(uname -m)" == "aarch64" ]]; then
+##  $EB $SCIPY_EC --robot --skip-test-step
+##else
+##  $EB $SCIPY_EC --robot
+##fi
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing GROMACS..."
-ok_msg="GROMACS installed, wow!"
-fail_msg="Installation of GROMACS failed, damned..."
-$EB GROMACS-2020.1-foss-2020a-Python-3.8.2.eb GROMACS-2020.4-foss-2020a-Python-3.8.2.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing GROMACS..."
+##ok_msg="GROMACS installed, wow!"
+##fail_msg="Installation of GROMACS failed, damned..."
+##$EB GROMACS-2020.1-foss-2020a-Python-3.8.2.eb GROMACS-2020.4-foss-2020a-Python-3.8.2.eb --robot
+#check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # note: compiling OpenFOAM is memory hungry (16GB is not enough with 8 cores)!
 # 32GB is sufficient to build with 16 cores
@@ -307,29 +308,29 @@ if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
     check_exit_code $? "${ok_msg}" "${fail_msg}"
 fi
 
-echo ">> Installing R 4.0.0 (better be patient)..."
-ok_msg="R installed, wow!"
-fail_msg="Installation of R failed, so sad..."
-$EB R-4.0.0-foss-2020a.eb --robot --parallel-extensions-install --experimental
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing R 4.0.0 (better be patient)..."
+##ok_msg="R installed, wow!"
+##fail_msg="Installation of R failed, so sad..."
+##$EB R-4.0.0-foss-2020a.eb --robot --parallel-extensions-install --experimental
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing Bioconductor 3.11 bundle..."
-ok_msg="Bioconductor installed, enjoy!"
-fail_msg="Installation of Bioconductor failed, that's annoying..."
-$EB R-bundle-Bioconductor-3.11-foss-2020a-R-4.0.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing Bioconductor 3.11 bundle..."
+##ok_msg="Bioconductor installed, enjoy!"
+##fail_msg="Installation of Bioconductor failed, that's annoying..."
+##$EB R-bundle-Bioconductor-3.11-foss-2020a-R-4.0.0.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing TensorFlow 2.3.1..."
-ok_msg="TensorFlow 2.3.1 installed, w00!"
-fail_msg="Installation of TensorFlow failed, why am I not surprised..."
-$EB TensorFlow-2.3.1-foss-2020a-Python-3.8.2.eb --robot --include-easyblocks-from-pr 2218
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing TensorFlow 2.3.1..."
+##ok_msg="TensorFlow 2.3.1 installed, w00!"
+##fail_msg="Installation of TensorFlow failed, why am I not surprised..."
+##$EB TensorFlow-2.3.1-foss-2020a-Python-3.8.2.eb --robot --include-easyblocks-from-pr 2218
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-echo ">> Installing Horovod 0.21.3..."
-ok_msg="Horovod installed! Go do some parallel training!"
-fail_msg="Horovod installation failed. There comes the headache..."
-$EB Horovod-0.21.3-foss-2020a-TensorFlow-2.3.1-Python-3.8.2.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing Horovod 0.21.3..."
+##ok_msg="Horovod installed! Go do some parallel training!"
+##fail_msg="Horovod installation failed. There comes the headache..."
+##$EB Horovod-0.21.3-foss-2020a-TensorFlow-2.3.1-Python-3.8.2.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
 
