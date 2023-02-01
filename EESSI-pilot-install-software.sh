@@ -54,9 +54,13 @@ source $TOPDIR/utils.sh
 
 # honor $TMPDIR if it is already defined, use /tmp otherwise
 if [ -z $TMPDIR ]; then
-    export WORKDIR=/tmp/$USER
+   # echo "$EESSI_TMPDIR first occ"
+  export WORKDIR=/tmp/$USER
+ #   export WORKDIR=$EESSI_TMPDIR/$USER
 else
-    export WORKDIR=$TMPDIR/$USER
+   export WORKDIR=$TMPDIR/$USER
+ #   echo "second occ:"
+  #   export WORKDIR=$EESSI_TMPDIR/$USER
 fi
 
 TMPDIR=$(mktemp -d)
@@ -152,6 +156,10 @@ else
     pip_install_out=${TMPDIR}/pip_install.out
     pip3 install --prefix $EB_TMPDIR easybuild &> ${pip_install_out}
 
+    # keep track of original $PATH and $PYTHONPATH values, so we can restore them
+    ORIG_PATH=$PATH
+    ORIG_PYTHONPATH=$PYTHONPATH
+
     echo ">> Final installation in ${EASYBUILD_INSTALLPATH}..."
     export PATH=${EB_TMPDIR}/bin:$PATH
     export PYTHONPATH=$(ls -d ${EB_TMPDIR}/lib/python*/site-packages):$PYTHONPATH
@@ -160,6 +168,10 @@ else
     fail_msg="Installing latest EasyBuild release failed, that's not good... (output: ${eb_install_out})"
     eb --install-latest-eb-release &> ${eb_install_out}
     check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+    # restore origin $PATH and $PYTHONPATH values
+    export PATH=${ORIG_PATH}
+    export PYTHONPATH=${ORIG_PYTHONPATH}
 
     eb --search EasyBuild-${REQ_EB_VERSION}.eb | grep EasyBuild-${REQ_EB_VERSION}.eb > /dev/null
     if [[ $? -eq 0 ]]; then
@@ -332,6 +344,7 @@ if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
     check_exit_code $? "${ok_msg}" "${fail_msg}"
 fi
 
+<<<<<<< HEAD
 #echo ">> Installing RStudio-Server 1.3.1093..."
 #ok_msg="RStudio-Server installed, enjoy!"
 #fail_msg="Installation of RStudio-Server failed, might be OS deps..."
@@ -367,6 +380,49 @@ fi
 #fail_msg="Installation of Nextflow failed, that's unexpected..."
 #$EB -r --from-pr 16531 Nextflow-22.10.1.eb
 #check_exit_code $? "${ok_msg}" "${fail_msg}"
+=======
+echo ">> Installing RStudio-Server 1.3.1093..."
+ok_msg="RStudio-Server installed, enjoy!"
+fail_msg="Installation of RStudio-Server failed, might be OS deps..."
+$EB RStudio-Server-1.3.1093-foss-2020a-Java-11-R-4.0.0.eb --robot
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing OSU-Micro-Benchmarks 5.6.3..."
+ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
+fail_msg="Installation of OSU-Micro-Benchmarks failed, that's unexpected..."
+$EB OSU-Micro-Benchmarks-5.6.3-gompi-2020a.eb -r
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing Spark 3.1.1..."
+ok_msg="Spark installed, set off the fireworks!"
+fail_msg="Installation of Spark failed, no fireworks this time..."
+$EB Spark-3.1.1-foss-2020a-Python-3.8.2.eb -r
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing IPython 7.15.0..."
+ok_msg="IPython installed, launch your Jupyter Notebooks!"
+fail_msg="Installation of IPython failed, that's unexpected..."
+$EB IPython-7.15.0-foss-2020a-Python-3.8.2.eb -r
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing WRF 3.9.1.1..."
+ok_msg="WRF installed, it's getting hot in here!"
+fail_msg="Installation of WRF failed, that's unexpected..."
+OMPI_MCA_pml=ucx UCX_TLS=tcp $EB WRF-3.9.1.1-foss-2020a-dmpar.eb -r --include-easyblocks-from-pr 2648
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing R 4.1.0 (better be patient)..."
+ok_msg="R installed, wow!"
+fail_msg="Installation of R failed, so sad..."
+$EB --from-pr 14821 X11-20210518-GCCcore-10.3.0.eb -r && $EB --from-pr 16011 R-4.1.0-foss-2021a.eb --robot --parallel-extensions-install --experimental
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
+echo ">> Installing Nextflow 22.10.1..."
+ok_msg="Nextflow installed, the work must flow..."
+fail_msg="Installation of Nextflow failed, that's unexpected..."
+$EB -r --from-pr 16531 Nextflow-22.10.1.eb
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+>>>>>>> main
 
 echo ">> Installing OSU-Micro-Benchmarks/5.7.1-gompi-2021a..."
 ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
