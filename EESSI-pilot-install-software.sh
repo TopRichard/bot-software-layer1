@@ -339,7 +339,7 @@ if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
     $EB code-server-3.7.3.eb --robot
     check_exit_code $? "${ok_msg}" "${fail_msg}"
 fi
-
+:  ‘
 echo ">> Installing RStudio-Server 1.3.1093..."
 ok_msg="RStudio-Server installed, enjoy!"
 fail_msg="Installation of RStudio-Server failed, might be OS deps..."
@@ -387,7 +387,7 @@ ok_msg="OSU-Micro-Benchmarks installed, yihaa!"
 fail_msg="Installation of OSU-Micro-Benchmarks failed, that's unexpected..."
 $EB OSU-Micro-Benchmarks-5.7.1-gompi-2021a.eb -r
 check_exit_code $? "${ok_msg}" "${fail_msg}"
-
+‘
 echo ">> Installing EasyBuild 4.5.1..."
 ok_msg="EasyBuild v4.5.1 installed"
 fail_msg="EasyBuild v4.5.1 failed to install"
@@ -430,6 +430,14 @@ $EB SciPy-bundle-2021.05-foss-2021a.eb --robot
 check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 ### add packages here
+
+export AdmixTools="AdmixTools-7.0.1-GCC-9.3.0.eb"
+echo ">> Installing ${AdmixTools}..."
+ok_msg="${AdmixTools} installed, let's solve some problems!"
+fail_msg="Installation of ${AdmixTools} failed, that's a pity..."
+$EB ${AdmixTools} --robot
+check_exit_code $? "${ok_msg}" "${fail_msg}"
+
 
 echo ">> Creating/updating Lmod cache..."
 export LMOD_RC="${EASYBUILD_INSTALLPATH}/.lmod/lmodrc.lua"
