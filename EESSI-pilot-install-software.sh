@@ -233,17 +233,17 @@ echo_green "All set, let's start installing some software in ${EASYBUILD_INSTALL
 ##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # If we're building OpenBLAS for GENERIC, we need https://github.com/easybuilders/easybuild-easyblocks/pull/1946
-echo ">> Installing OpenBLAS..."
-ok_msg="Done with OpenBLAS!"
-fail_msg="Installation of OpenBLAS failed!"
-if [[ $GENERIC -eq 1 ]]; then
-    echo_yellow ">> Using https://github.com/easybuilders/easybuild-easyblocks/pull/1946 to build generic OpenBLAS."
-    openblas_include_easyblocks_from_pr="--include-easyblocks-from-pr 1946"
-else
-    openblas_include_easyblocks_from_pr=''
-fi
-$EB $openblas_include_easyblocks_from_pr OpenBLAS-0.3.9-GCC-9.3.0.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing OpenBLAS..."
+##ok_msg="Done with OpenBLAS!"
+##fail_msg="Installation of OpenBLAS failed!"
+##if [[ $GENERIC -eq 1 ]]; then
+##    echo_yellow ">> Using https://github.com/easybuilders/easybuild-easyblocks/pull/1946 to build generic OpenBLAS."
+##    openblas_include_easyblocks_from_pr="--include-easyblocks-from-pr 1946"
+##else
+##    openblas_include_easyblocks_from_pr=''
+##fi
+##$EB $openblas_include_easyblocks_from_pr OpenBLAS-0.3.9-GCC-9.3.0.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 ##echo ">> Installing OpenMPI..."
 ##ok_msg="OpenMPI installed, w00!"
@@ -294,19 +294,19 @@ check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 # note: compiling OpenFOAM is memory hungry (16GB is not enough with 8 cores)!
 # 32GB is sufficient to build with 16 cores
-echo ">> Installing OpenFOAM (twice!)..."
-ok_msg="OpenFOAM installed, now we're talking!"
-fail_msg="Installation of OpenFOAM failed, we were so close..."
-$EB OpenFOAM-8-foss-2020a.eb OpenFOAM-v2006-foss-2020a.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##echo ">> Installing OpenFOAM (twice!)..."
+##ok_msg="OpenFOAM installed, now we're talking!"
+##fail_msg="Installation of OpenFOAM failed, we were so close..."
+##$EB OpenFOAM-8-foss-2020a.eb OpenFOAM-v2006-foss-2020a.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
-    echo ">> Installing QuantumESPRESSO..."
-    ok_msg="QuantumESPRESSO installed, let's go quantum!"
-    fail_msg="Installation of QuantumESPRESSO failed, did somebody observe it?!"
-    $EB QuantumESPRESSO-6.6-foss-2020a.eb --robot
-    check_exit_code $? "${ok_msg}" "${fail_msg}"
-fi
+##if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
+##    echo ">> Installing QuantumESPRESSO..."
+##    ok_msg="QuantumESPRESSO installed, let's go quantum!"
+##    fail_msg="Installation of QuantumESPRESSO failed, did somebody observe it?!"
+##    $EB QuantumESPRESSO-6.6-foss-2020a.eb --robot
+##    check_exit_code $? "${ok_msg}" "${fail_msg}"
+##fi
 
 ##echo ">> Installing R 4.0.0 (better be patient)..."
 ##ok_msg="R installed, wow!"
@@ -332,14 +332,14 @@ fi
 ##$EB Horovod-0.21.3-foss-2020a-TensorFlow-2.3.1-Python-3.8.2.eb --robot
 ##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
-if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
+##if [ ! "${EESSI_CPU_FAMILY}" = "ppc64le" ]; then
 
-    echo ">> Installing code-server 3.7.3..."
-    ok_msg="code-server 3.7.3 installed, now you can use VS Code!"
-    fail_msg="Installation of code-server failed, that's going to be hard to fix..."
-    $EB code-server-3.7.3.eb --robot
-    check_exit_code $? "${ok_msg}" "${fail_msg}"
-fi
+##    echo ">> Installing code-server 3.7.3..."
+##    ok_msg="code-server 3.7.3 installed, now you can use VS Code!"
+##    fail_msg="Installation of code-server failed, that's going to be hard to fix..."
+##    $EB code-server-3.7.3.eb --robot
+##    check_exit_code $? "${ok_msg}" "${fail_msg}"
+##fi
 
 ##echo ">> Installing RStudio-Server 1.3.1093..."
 ##ok_msg="RStudio-Server installed, enjoy!"
@@ -398,37 +398,37 @@ check_exit_code $? "${ok_msg}" "${fail_msg}"
 LMOD_IGNORE_CACHE=1 module swap EasyBuild/4.5.1
 check_exit_code $? "Swapped to EasyBuild/4.5.1" "Couldn't swap to EasyBuild/4.5.1"
 
-echo ">> Installing SciPy-bundle with foss/2021a..."
-ok_msg="SciPy-bundle with foss/2021a installed, welcome to the modern age"
-fail_msg="Installation of SciPy-bundle with foss/2021a failed, back to the stone age..."
+##echo ">> Installing SciPy-bundle with foss/2021a..."
+##ok_msg="SciPy-bundle with foss/2021a installed, welcome to the modern age"
+##fail_msg="Installation of SciPy-bundle with foss/2021a failed, back to the stone age..."
 # use GCCcore easyconfig from https://github.com/easybuilders/easybuild-easyconfigs/pull/14454
 # which includes patch to fix installation with recent Linux kernel headers
-$EB --from-pr 14454 GCCcore-10.3.0.eb --robot
+##$EB --from-pr 14454 GCCcore-10.3.0.eb --robot
 # use enhanced Perl easyblock from https://github.com/easybuilders/easybuild-easyblocks/pull/2640
 # to avoid trouble when using long installation prefix (for example with EESSI pilot 2021.12 on skylake_avx512...)
-$EB Perl-5.32.1-GCCcore-10.3.0.eb --robot --include-easyblocks-from-pr 2640
+##$EB Perl-5.32.1-GCCcore-10.3.0.eb --robot --include-easyblocks-from-pr 2640
 # use enhanced CMake easyblock to patch CMake's UnixPaths.cmake script if --sysroot is set
 # from https://github.com/easybuilders/easybuild-easyblocks/pull/2248
-$EB CMake-3.20.1-GCCcore-10.3.0.eb --robot --include-easyblocks-from-pr 2248
+##$EB CMake-3.20.1-GCCcore-10.3.0.eb --robot --include-easyblocks-from-pr 2248
 # use Rust easyconfig from https://github.com/easybuilders/easybuild-easyconfigs/pull/14584
 # that includes patch to fix bootstrap problem when using alternate sysroot
-$EB --from-pr 14584 Rust-1.52.1-GCCcore-10.3.0.eb --robot
+##$EB --from-pr 14584 Rust-1.52.1-GCCcore-10.3.0.eb --robot
 # use OpenBLAS easyconfig from https://github.com/easybuilders/easybuild-easyconfigs/pull/15885
 # which includes a patch to fix installation on POWER
-$EB $openblas_include_easyblocks_from_pr --from-pr 15885 OpenBLAS-0.3.15-GCC-10.3.0.eb --robot
+##$EB $openblas_include_easyblocks_from_pr --from-pr 15885 OpenBLAS-0.3.15-GCC-10.3.0.eb --robot
 # ignore failing FlexiBLAS tests when building on POWER;
 # some tests are failing due to a segmentation fault due to "invalid memory reference",
 # see also https://github.com/easybuilders/easybuild-easyconfigs/pull/12476;
 # using -fstack-protector-strong -fstack-clash-protection should fix that,
 # but it doesn't for some reason when building for ppc64le/generic...
-if [ "${EESSI_SOFTWARE_SUBDIR}" = "ppc64le/generic" ]; then
-    $EB FlexiBLAS-3.0.4-GCC-10.3.0.eb --ignore-test-failure
-else
-    $EB FlexiBLAS-3.0.4-GCC-10.3.0.eb
-fi
+##if [ "${EESSI_SOFTWARE_SUBDIR}" = "ppc64le/generic" ]; then
+##    $EB FlexiBLAS-3.0.4-GCC-10.3.0.eb --ignore-test-failure
+##else
+##    $EB FlexiBLAS-3.0.4-GCC-10.3.0.eb
+##fi
 
-$EB SciPy-bundle-2021.05-foss-2021a.eb --robot
-check_exit_code $? "${ok_msg}" "${fail_msg}"
+##$EB SciPy-bundle-2021.05-foss-2021a.eb --robot
+##check_exit_code $? "${ok_msg}" "${fail_msg}"
 
 ### add packages here
 
