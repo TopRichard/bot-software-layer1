@@ -201,6 +201,7 @@ def parse_hook_python_bare_set_LANG(ec, eprefix):
         print_msg("NOTE: The environment variable: LANG will be set to en_DK.UTF-8")
         ec.log.info("NOTE: The environment variable: LANG will be set to en_DK.UTF-8")
         os.environ['LANG'] = 'en_DK.UTF-8' 
+        print_msg("NOTE: The environment variable: LANG is set to %s", os.getenv('LANG'))
 
 
 def parse_hook_ucx_eprefix(ec, eprefix):
