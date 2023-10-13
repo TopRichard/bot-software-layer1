@@ -55,3 +55,4 @@ easyconfigs:
       # Uses a custom hook since has zlib as dependency which has hard coded header and library path within Pillow code.
       options:
         from-pr: 18881
+  - Python-2.7.18-GCCcore-11.3.0-bare.eb

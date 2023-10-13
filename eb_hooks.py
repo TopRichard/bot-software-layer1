@@ -194,6 +194,15 @@ def parse_hook_pillow_set_cpath_library_path(ec, eprefix):
         os.environ['LIBRARY_PATH'] = os.pathsep.join(filter(None,[os.environ.get('LIBRARY_PATH',''), EESSI_LIB_PATH]))
 
 
+
+def parse_hook_python_bare_set_LANG(ec, eprefix):
+    """Set the LANG variable to C.UTF-8 in case it was empty."""
+    if ec.name == 'Python' and ec.version =='2.7.18' and os.getenv('LANG') is None:
+        print_msg("NOTE: The environment variable: LANG will be set to C.UTF-8")
+        ec.log.info("NOTE: The environment variable: LANG will be set to C.UTF-8")
+        os.environ['LANG'] = 'C.UTF-8' 
+
+
 def parse_hook_ucx_eprefix(ec, eprefix):
     """Make UCX aware of compatibility layer via additional configuration options."""
     if ec.name == 'UCX':
@@ -290,6 +299,7 @@ PARSE_HOOKS = {
     'fontconfig': parse_hook_fontconfig_add_fonts,
     'OpenBLAS': parse_hook_openblas_relax_lapack_tests_num_errors,
     'Pillow': parse_hook_pillow_set_cpath_library_path,
+    'Python':  parse_hook_python_bare_set_LANG,
     'UCX': parse_hook_ucx_eprefix,
 }
 
