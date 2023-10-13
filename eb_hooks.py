@@ -198,9 +198,9 @@ def parse_hook_pillow_set_cpath_library_path(ec, eprefix):
 def parse_hook_python_bare_set_LANG(ec, eprefix):
     """Set the LANG variable to C.UTF-8 in case it was empty."""
     if ec.name == 'Python' and ec.version =='2.7.18' and os.getenv('LANG') is None:
-        print_msg("NOTE: The environment variable: LANG will be set to C.UTF-8")
-        ec.log.info("NOTE: The environment variable: LANG will be set to C.UTF-8")
-        os.environ['LANG'] = 'C.UTF-8' 
+        print_msg("NOTE: The environment variable: LANG will be set to C")
+        ec.log.info("NOTE: The environment variable: LANG will be set to C")
+        os.environ['LANG'] = 'C' 
 
 
 def parse_hook_ucx_eprefix(ec, eprefix):
