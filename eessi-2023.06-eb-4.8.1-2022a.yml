@@ -55,7 +55,7 @@ easyconfigs:
       # Uses a custom hook since has zlib as dependency which has hard coded header and library path within Pillow code.
       options:
         from-pr: 18881
-  - cpio-2.14-foss-2022a.eb:
+  - cpio-2.14-GCCcore-11.3.0.eb:
       options:
         from-pr: 19017
   - BLAST+-2.13.0-gompi-2022a.eb
