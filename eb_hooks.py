@@ -142,8 +142,8 @@ def parse_hook_blast_builddependencies(ec, eprefix):
     """Append cpio as a builddependency for BLAST."""
     if ec.name == 'BLAST+':
         ec['builddependencies'].append(('cpio','2.14'))
-        print_msg("NOTE: Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14))"
-        ec.log.info("NOTE:  Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14))"
+        print_msg("NOTE: Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14)")
+        ec.log.info("NOTE:  Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14)")
     else:
         raise EasyBuildError("blast-specific hook triggered for non-blast easyconfig?!")
      
