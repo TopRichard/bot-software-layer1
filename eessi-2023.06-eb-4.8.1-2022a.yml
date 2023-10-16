@@ -50,4 +50,13 @@ easyconfigs:
   - PCRE2-10.40-GCCcore-11.3.0.eb
   - Tk-8.6.12-GCCcore-11.3.0.eb
   - GROMACS-2023.1-foss-2022a.eb
+  - MUMPS-5.5.1-foss-2022a-metis.eb
+  - Pillow-9.1.1-GCCcore-11.3.0.eb:
+      # Uses a custom hook since has zlib as dependency which has hard coded header and library path within Pillow code.
+      options:
+        from-pr: 18881
+  - cpio-2.14-foss-2022a.eb:
+      options:
+        from-pr: 19017
+  - BLAST+-2.13.0-gompi-2022a.eb
   - MAKER-3.01.04-foss-2022a.eb

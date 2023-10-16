@@ -138,6 +138,15 @@ def post_prepare_hook(self, *args, **kwargs):
         POST_PREPARE_HOOKS[self.name](self, *args, **kwargs)
 
 
+def parse_hook_blast_builddependencies(ec, eprefix):
+    """Append cpio as a builddependency for BLAST."""
+    if ec.name == 'BLAST+':
+        ec['builddependencies'].append(('cpio','2.14'))
+        print_msg("NOTE: Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14))"
+        ec.log.info("NOTE:  Blast+ requires cpio during the build process, The original builddependency list has been appended with (cpio,2.14))"
+    else:
+        raise EasyBuildError("blast-specific hook triggered for non-blast easyconfig?!")
+     
 def parse_hook_cgal_toolchainopts_precise(ec, eprefix):
     """Enable 'precise' rather than 'strict' toolchain option for CGAL on POWER."""
     if ec.name == 'CGAL':
@@ -175,6 +184,23 @@ def parse_hook_openblas_relax_lapack_tests_num_errors(ec, eprefix):
             print_msg("Not changing option %s for %s on non-AARCH64", cfg_option, ec.name)
     else:
         raise EasyBuildError("OpenBLAS-specific hook triggered for non-OpenBLAS easyconfig?!")
+
+
+def parse_hook_pillow_set_cpath_library_path(ec, eprefix):
+    """Extend CPATH and LIBRARY_PATH environment variables using EESSI_EPREFIX."""
+    if ec.name == 'Pillow':
+        EESSI_CPATH = os.getenv('EESSI_EPREFIX') + '/usr/include'
+        EESSI_LIB_PATH = os.getenv('EESSI_EPREFIX') + '/usr/lib64'
+        print_msg("NOTE: Pillow has zlib as a dependancy, The original CPATH value: (%s) has been extended with (%s)",
+                  os.getenv('CPATH'),  EESSI_CPATH)
+        print_msg("NOTE: Pillow has zlib as a dependancy, The original LIBRARY_PATH value: (%s) has been extended with (%s)",
+                  os.getenv('LIBRARY_PATH'),  EESSI_LIB_PATH)
+        ec.log.info("NOTE: Pillow has zlib as a dependancy, The original CPATH value: (%s)  has been extended with (%s)",
+                    os.getenv('CPATH'), EESSI_CPATH)
+        ec.log.info("NOTE: Pillow has zlib as a dependancy, The original LIBRARY_VALUE value: (%s) has been extended with (%s)",
+                    os.getenv('LIBRARY_PATH'), EESSI_LIB_PATH)
+        os.environ['CPATH'] = os.pathsep.join(filter(None,[os.environ.get('CPATH',''), EESSI_CPATH]))
+        os.environ['LIBRARY_PATH'] = os.pathsep.join(filter(None,[os.environ.get('LIBRARY_PATH',''), EESSI_LIB_PATH]))
 
 
 def parse_hook_ucx_eprefix(ec, eprefix):
@@ -269,9 +295,11 @@ def pre_test_hook_ignore_failing_tests_SciPybundle(self, *args, **kwargs):
 
 
 PARSE_HOOKS = {
+    'BLAST+': parse_hook_blast_builddependencies,
     'CGAL': parse_hook_cgal_toolchainopts_precise,
     'fontconfig': parse_hook_fontconfig_add_fonts,
     'OpenBLAS': parse_hook_openblas_relax_lapack_tests_num_errors,
+    'Pillow': parse_hook_pillow_set_cpath_library_path,
     'UCX': parse_hook_ucx_eprefix,
 }
 
