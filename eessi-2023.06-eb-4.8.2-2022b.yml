@@ -1,0 +1,4 @@
+easyconfigs:
+  - strace-6.6-GCCcore-12.2.0.eb:
+        options:
+          from-pr: 19227
