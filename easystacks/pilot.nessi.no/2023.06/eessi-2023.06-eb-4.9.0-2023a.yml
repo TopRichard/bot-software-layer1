@@ -37,3 +37,4 @@ easyconfigs:
   - ALL-0.9.2-foss-2023a.eb:
   - OSU-Micro-Benchmarks-7.1-1-gompi-2023a.eb
   - GDAL-3.7.1-foss-2023a.eb
+  - Pillow-SIMD-9.5.0-GCCcore-12.3.0.eb
