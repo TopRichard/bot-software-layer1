@@ -55,7 +55,4 @@ easyconfigs:
   - PyTorch-2.1.2-foss-2023a-CUDA-12.1.1.eb:
       options:
         cuda-compute-capabilities: 6.0,6.1,7.0,7.5,8.0,8.6,8.9,9.0
-  - OpenFOAM-v2312-foss-2023a.eb:
-      options:
-        include-easyblocks-from-pr: 3328
-        from-pr: 20517
+  - OpenFOAM-v2312-foss-2023a.eb
