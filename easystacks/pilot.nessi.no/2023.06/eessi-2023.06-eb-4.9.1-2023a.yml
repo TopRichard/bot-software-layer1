@@ -76,3 +76,4 @@ easyconfigs:
   - tensorboard-2.15.1-gfbf-2023a.eb
   - tqdm-4.66.1-GCCcore-12.3.0.eb
   - bx-python-0.10.0-foss-2023a.eb
+  - Valgrind-3.21.0-gompi-2023a.eb
