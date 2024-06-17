@@ -165,7 +165,7 @@ if [[ "${cpuinfo}" =~ (Core\(s\) per socket:[^0-9]*([0-9]+)) ]]; then
 else
     fatal_error "Failed to get the number of cores per socket for the current test hardware with lscpu."
 fi
-cgroup_mem_bytes=$(cat /hostsys/fs/cgroup/memory/slurm/uid_${UID}/job_${SLURM_JOB_ID}/memory.limit_in_bytes)
+# cgroup_mem_bytes=$(cat /hostsys/fs/cgroup/memory/slurm/uid_${UID}/job_${SLURM_JOB_ID}/memory.limit_in_bytes)
 if [[ $? -eq 0 ]]; then
     # Convert to MiB
     cgroup_mem_mib=$((cgroup_mem_bytes/(1024*1024)))
@@ -177,7 +177,8 @@ sed -i "s/__NUM_CPUS__/${cpu_count}/g" $RFM_CONFIG_FILES
 sed -i "s/__NUM_SOCKETS__/${socket_count}/g" $RFM_CONFIG_FILES
 sed -i "s/__NUM_CPUS_PER_CORE__/${threads_per_core}/g" $RFM_CONFIG_FILES
 sed -i "s/__NUM_CPUS_PER_SOCKET__/${cores_per_socket}/g" $RFM_CONFIG_FILES
-sed -i "s/__MEM_PER_NODE__/${cgroup_mem_mib}/g" $RFM_CONFIG_FILES
+# on local systems the change below is not the case, it works on AWS
+# sed -i "s/__MEM_PER_NODE__/${cgroup_mem_mib}/g" $RFM_CONFIG_FILES
 
 # Workaround for https://github.com/EESSI/software-layer/pull/467#issuecomment-1973341966
 export PSM3_DEVICES='self,shm'  # this is enough, since we only run single node for now
