@@ -6,3 +6,6 @@ easyconfigs:
   - cuDNN-8.9.2.26-CUDA-12.1.1.eb
   - cuTENSOR-2.0.1.2-CUDA-12.1.1.eb
   - Nextflow-23.10.0.eb
+  - EasyBuild-4.9.2.eb:
+      options:
+        from-pr: 20818
