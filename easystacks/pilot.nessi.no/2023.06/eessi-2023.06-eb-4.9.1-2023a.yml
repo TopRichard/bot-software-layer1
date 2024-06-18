@@ -82,6 +82,3 @@ easyconfigs:
   - BLAST+-2.14.1-gompi-2023a.eb:
       options:     
         from-pr: 20784
-  - grpcio-1.57.0-GCCcore-12.3.0.eb:
-      options:     
-        from-pr: 20191
