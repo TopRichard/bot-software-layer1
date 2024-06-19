@@ -231,6 +231,15 @@ def parse_hook_gpaw_harcoded_path(ec, eprefix):
         raise EasyBuildError("GPAW-specific hook triggered for non-GPAW easyconfig?!")
 
 
+def parse_hook_grpcio_zlib(ec, ecprefix):
+    if ec.name == 'grpcio' and ec.version in ['1.57.0']:
+        exts_list = ec['exts_list']
+        (exts_list[0][2])['preinstallopts'] = "sed -i 's@/usr@%(sysroot)s/usr@g' setup.py && export GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS=%(parallel)s && export GRPC_PYTHON_CFLAGS=\"-fvisibility=hidden -fno-wrapv -fno-exceptions\" &&GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=True GRPC_PYTHON_BUILD_SYSTEM_ZLIB=False GRPC_PYTHON_BUILD_SYSTEM_RE2=True GRPC_PYTHON_BUILD_SYSTEM_ABSL=True"
+        print_msg("Modified the easyconfig to use compat ZLIB with GRPC_PYTHON_BUILD_SYSTEM_ZLIB=False")
+    else:
+        raise EasyBuildError("grpcio-specific hook triggered for a non-grpcio easyconfig?!")
+
+
 def parse_hook_imagemagick_add_dependency(ec, eprefix):
     """Add dependency for PCRE/8.45 for ImageMagick/7.1.0-37"""
     if ec.name == 'ImageMagick':
@@ -937,6 +946,7 @@ PARSE_HOOKS = {
     'CGAL': parse_hook_cgal_toolchainopts_precise,
     'fontconfig': parse_hook_fontconfig_add_fonts,
     'GPAW': parse_hook_gpaw_harcoded_path,
+    'grpcio': parse_hook_grpcio_zlib,
     'ImageMagick': parse_hook_imagemagick_add_dependency,
     'LAMMPS': parse_hook_lammps_remove_deps_for_CI_aarch64,
     'librosa': parse_hook_librosa_custom_ctypes,
